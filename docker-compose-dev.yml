@@ -1,0 +1,39 @@
+version: "3.9"
+
+x-services-volumes: &proxy-vol
+    - ${STATIC_ROOT_REL}:/vol/web/static:r,cached
+    - ${MEDIA_ROOT_REL}:/vol/web/uploads:rw,cached
+
+# x-services-volumes: &services-volumes
+#     - ./app:/code:rw,cached
+
+services:
+    ocr_api_srv:
+        image: fast_ocr
+        container_name: ocr_api_srv
+        restart: always
+        environment:
+          - UPLOAD_DIR=/vol/web/uploads
+        volumes:
+          - ./app:/code:r,cached
+          - ${STATIC_ROOT_REL}:/vol/web/static:r,cached
+          - ${MEDIA_ROOT_REL}:/vol/web/uploads:r,cached
+        
+        ports:
+          - "5000:5000"
+
+    proxy:
+        build: 
+           context: ./proxy
+        # image: ocr_nginx
+        container_name: nginx_proxy
+        restart: always
+        depends_on: 
+            - fast_ocr
+        ports: 
+            - ${LISTEN_PORT}:80
+        volumes: *proxy-vol
+
+# volumes:
+#     pgdata:
+#         external: true 

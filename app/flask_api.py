@@ -8,11 +8,11 @@ from uuid import uuid4
 
 app = Flask(__name__, template_folder='templates')
 
-UPLOAD_DIR = "/tmp/"
+UPLOAD_DIR = os.environ.get("UPLOAD_DIR", default="/tmp")
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_DIR
-app.config['MAX_CONTENT_LENGTH'] = 8 * 1000 * 1000
+# print(UPLOAD_DIR)
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -27,7 +27,6 @@ def image_to_txt(filename):
         print(e)
 
     return txt
-
 
 @app.route("/", methods=['GET'])
 def home():
@@ -58,7 +57,7 @@ def upload():
 
             txt = image_to_txt(local_path)
 
-            os.remove(local_path)
+            # os.remove(local_path)
 
             if not txt:
                 txt = 'An Error Occoured!'
@@ -69,5 +68,5 @@ def upload():
 
     return make_response(jsonify({"message": "Upload a file."}), 200)
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=8080)

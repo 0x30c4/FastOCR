@@ -2,4 +2,11 @@
 
 # python /root/gpt-j-api/flask_api.py &>> /root/gpt-j-api/log &
 
-python /code/flask_api.py
+# python /code/wsgi.py
+# uwsgi --socket 0.0.0.0:8080 --protocol=http -w wsgi:app
+
+# cd /code
+
+# uwsgi --plugin /usr/lib/uwsgi/python_plugin.so --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
+
+gunicorn -w 3 --bind 0.0.0.0:5000 wsgi:app
