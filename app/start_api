@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# python /root/gpt-j-api/flask_api.py &>> /root/gpt-j-api/log &
+
+python /code/flask_api.py
