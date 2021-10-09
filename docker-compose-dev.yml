@@ -1,8 +1,8 @@
 version: "3.9"
 
 x-services-volumes: &proxy-vol
-    - ${STATIC_ROOT_REL}:/vol/web/static:r,cached
-    - ${MEDIA_ROOT_REL}:/vol/web/uploads:rw,cached
+    - ${STATIC_ROOT_REL}:/vol/web/static
+    - ${MEDIA_ROOT_REL}:/vol/web/uploads
 
 # x-services-volumes: &services-volumes
 #     - ./app:/code:rw,cached
@@ -16,8 +16,8 @@ services:
           - UPLOAD_DIR=/vol/web/uploads
         volumes:
           - ./app:/code:r,cached
-          - ${STATIC_ROOT_REL}:/vol/web/static:r,cached
-          - ${MEDIA_ROOT_REL}:/vol/web/uploads:r,cached
+          - ${STATIC_ROOT_REL}:/vol/web/static
+          - ${MEDIA_ROOT_REL}:/vol/web/uploads
         
         ports:
           - "5000:5000"
