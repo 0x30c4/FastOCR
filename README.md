@@ -9,8 +9,8 @@ This application receive a http multipart request with a image file, extract tex
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [make](https://tldp.org/HOWTO/Software-Building-HOWTO-3.html) and [Docker](https://www.docker.com/products/docker-desktop) installed.
 
 # Version.
-    [Development](https://github.com/0x30c4/FastOCR#deploy-docker-container-development-version)
-    [Production](https://github.com/0x30c4/FastOCR#deploy-docker-container-production-version)
+   [Development](https://github.com/0x30c4/FastOCR#deploy-docker-container-development-version)
+   [Production](https://github.com/0x30c4/FastOCR#deploy-docker-container-production-version)
 
 ## Deploy Docker Container (Development Version.).
 ### Clone/git pull the repo into any local directory
