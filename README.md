@@ -3,6 +3,7 @@
 ## What The the service does?
 
 This application receive a http multipart request with a image file, extract text using OCR from Tesseract and returns the result.
+I know it's not an UNIQUE project but my main goal is to make a fast and less resource intensive OCR web service.
 
 # Live Demo.
 [https://ocr.0x30c4.dev](https://ocr.0x30c4.dev)
