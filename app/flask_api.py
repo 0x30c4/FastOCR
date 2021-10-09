@@ -23,6 +23,8 @@ def image_to_txt(filename):
     try:
         txt = check_output(['tesseract', filename, 'stdout'])
         txt = txt.decode()
+        if txt.strip() == '':
+            txt = 'Your image has not text!'
     except Exception as e:
         print(e)
 
