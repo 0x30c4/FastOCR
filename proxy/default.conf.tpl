@@ -11,6 +11,7 @@ server {
     
     location /uploads {
         alias /vol/web/uploads;
+        client_max_body_size 150M;
     }
 
     location / {
