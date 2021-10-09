@@ -4,6 +4,9 @@
 
 This application receive a http multipart request with a image file, extract text using OCR from Tesseract and returns the result.
 
+## Demo
+[https://ocr.0x30c4.dev](https://ocr.0x30c4.dev)
+
 ## Prerequisites
 
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [make](https://tldp.org/HOWTO/Software-Building-HOWTO-3.html) and [Docker](https://www.docker.com/products/docker-desktop) installed.
