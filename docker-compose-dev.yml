@@ -15,7 +15,7 @@ services:
         environment:
           - UPLOAD_DIR=/vol/web/uploads
         volumes:
-          - ./app:/code:r,cached
+          - ./app:/code
           - ${STATIC_ROOT_REL}:/vol/web/static
           - ${MEDIA_ROOT_REL}:/vol/web/uploads
         
