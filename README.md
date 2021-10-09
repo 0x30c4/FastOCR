@@ -13,7 +13,7 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
    [Production](https://github.com/0x30c4/FastOCR#deploy-docker-container-production-version)
 
 ## Deploy Docker Container (Development Version.).
-### Clone/git pull the repo into any local directory
+### Clone the repo
 ```
 $ git clone https://github.com/0x30c4/FastOCR
 ```
