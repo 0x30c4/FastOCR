@@ -4,7 +4,7 @@
 
 This application receive a http multipart request with a image file, extract text using OCR from Tesseract and returns the result.
 
-## Live Demo.
+# Live Demo.
 [https://ocr.0x30c4.dev](https://ocr.0x30c4.dev)
 
 ## Built With.
