@@ -1,4 +1,4 @@
-build:
+build-dev:
 	cp ./app/templates/index.html ./data/media/static/index.html
 	docker build --force-rm $(op) -t fast_ocr:latest .
 
