@@ -62,7 +62,7 @@ def upload():
             if not txt:
                 txt = 'An Error Occoured!'
 
-            return make_response(jsonify({"text_in_image": txt}), 200)
+            return make_response(jsonify({"text_in_image": txt, "img_url": filename}), 200)
         else:
             return make_response(jsonify({"message": "File Not Allowed!"}), 200)
 
