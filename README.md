@@ -4,16 +4,24 @@
 
 This application receive a http multipart request with a image file, extract text using OCR from Tesseract and returns the result.
 
-## Demo
+## Live Demo.
 [https://ocr.0x30c4.dev](https://ocr.0x30c4.dev)
+
+## Built With
+
+* [Docker](https://www.docker.com) - Platform and Software Deployment
+* [Flask](https://flask.palletsprojects.com/en/2.0.x/) - Backend Frame-work.
+* [Nginx](https://nginx.com/) - For Load Balancing.
+* [Bootstrap](https://getbootstrap.com/) For the frontend.
+* [jQuery](https://jquery.com/) - JavaScript Library
 
 ## Prerequisites
 
 Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [make](https://tldp.org/HOWTO/Software-Building-HOWTO-3.html) and [Docker](https://www.docker.com/products/docker-desktop) installed.
 
 # Version.
-   [Development](https://github.com/0x30c4/FastOCR#deploy-docker-container-development-version)<br>
-   [Production](https://github.com/0x30c4/FastOCR#deploy-docker-container-production-version)
+* [Development](https://github.com/0x30c4/FastOCR#deploy-docker-container-development-version)<br>
+* [Production](https://github.com/0x30c4/FastOCR#deploy-docker-container-production-version)
 
 ## Deploy Docker Container (Development Version.).
 ### Clone the repo
