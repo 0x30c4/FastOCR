@@ -1,2 +1,3 @@
 data/media/uploads/*
 app/__pycache__/*
+app/__pycache__/
