@@ -1,16 +1,39 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <title>Free! Text 2 Image Convertor Online.</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <meta name="description" content="Convert your image to text for FREE!! Simple and lightweight OCR service. Official Repository https://github.com/0x30c4/FastOCR">
 
-  <title>Upload A Image</title>
-</head>
+        <!-- Google / Search Engine Tags -->
+        <meta itemprop="name" content="Free! Text 2 Image Convertor Online.">
+        <meta itemprop="title" content="Free! Text 2 Image Convertor Online.">
+        <meta itemprop="description" content="Convert your image to text for FREE!! Simple and lightweight OCR service. Official Repository https://github.com/0x30c4/FastOCR ">
+        <meta itemprop="image" content="https://ocr.0x30c4.dev/static/favicon.ico">
+
+        <!-- Facebook Meta Tags -->
+        <meta property="og:url" content="https://ocr.0x30c4.dev/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Free! Text 2 Image Convertor Online.">
+        <meta property="og:description" content="Convert your image to text for FREE!! Simple and lightweight OCR service. Official Repository https://github.com/0x30c4/FastOCR">
+        <meta property="og:image" content="https://ocr.0x30c4.dev/static/favicon.ico">
+
+        <!-- Twitter Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="https://ocr.0x30c4.dev/">
+        <meta name="twitter:title" content="Free! Text 2 Image Convertor Online.">
+        <meta name="twitter:description" content="Convert your image to text for FREE!! Simple and lightweight OCR service. Official Repository https://github.com/0x30c4/FastOCR">
+        <meta name="twitter:image" content="https://ocr.0x30c4.dev/static/favicon.ico">
+
+        <!-- Bootstrap CSS -->
+        <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    </head>
 
 <body>
 
@@ -178,7 +201,7 @@
 
           document.getElementById("img2txt").style.display = '';
           document.getElementById("textar").innerText = request.response['text_in_image'];
-          document.getElementById("conv_image").setAttribute("src", "https://pbs.twimg.com/media/E3v6RrwX0AAn4zx?format=jpg&name=medium");
+          document.getElementById("conv_image").setAttribute("src", "/uploads/" + request.response['img_url']);
 
         }
         else {

@@ -9,10 +9,11 @@ COPY app/requirements.txt /requirements.txt
 WORKDIR /code
 
 RUN pip install --upgrade pip && \
+    apk add --update --no-cache --virtual .tmp-deps tesseract-ocr build-base jpeg-dev zlib-dev  && \
     pip install -r /requirements.txt && \
-    apk add --update --no-cache tesseract-ocr && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/uploads && \
-    rm /requirements.txt
+    rm /requirements.txt &&\
+    apk del build-base jpeg-dev zlib-dev 
 
 CMD ["/code/start_api"]
