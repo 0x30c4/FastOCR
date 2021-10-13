@@ -2,7 +2,8 @@
 from fastapi import FastAPI, File, UploadFile
 from uvicorn import run
 from pytesseract import image_to_string
-from os import environ, path
+from os import environ
+from os.path import join
 from uuid import uuid4
 
 app = FastAPI()
@@ -27,8 +28,12 @@ async def process(image: UploadFile = File(...)):
         ret_dic = {"Error": "Uploaded File is not a IMAGE!"}
 
     else:
-        image.filename = uuid4().__str__()
-        upload_path = path.join(UPLOAD_DIR, image.filename)
+        # Extract the file extention
+        ext = image.content_type.split("/")[1]
+
+        image.filename = f"{uuid4()}.{ext}"
+
+        upload_path = join(UPLOAD_DIR, image.filename)
 
         contents = await image.read()
 
