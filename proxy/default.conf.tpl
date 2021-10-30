@@ -5,8 +5,10 @@ upstream backend {
 server {
     listen 80;
 
-    location /static {
-        alias /vol/web/static;
+    index index.html;
+
+    location / {
+        alias /vol/web/static/;
     }
     
     location /uploads {
@@ -14,7 +16,7 @@ server {
         client_max_body_size 150M;
     }
 
-    location / {
+    location /api {
         proxy_pass http://backend;
     }
 }

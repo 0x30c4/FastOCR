@@ -1,4 +1,10 @@
-fastapi>=0.68.2,<0.68.2
-pytesseract==0.3.8
-uvicorn[standard]==0.15.0
+alembic==1.6.5
+fastapi==0.65.2
+FastAPI-SQLAlchemy==0.2.1
+Mako==1.1.4
+SQLAlchemy==1.4.19
+uvicorn==0.14.0
+psycopg2-binary==2.9.1
+aiofiles==0.7.0
 python-multipart==0.0.5
+pytesseract==0.3.8

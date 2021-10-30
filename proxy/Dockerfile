@@ -6,16 +6,12 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 # COPY ./uwsgi_params /etc/nginx/uwsgi_params
 COPY ./run.sh /run.sh
 
-ENV LISTEN_PORT 61571
-ENV APP_HOST ocr_nginx
-ENV APP_PORT 5000
-
 USER root
 
-RUN mkdir -p /vol/web
-RUN touch /etc/nginx/conf.d/default.conf
-RUN chown nginx:nginx /etc/nginx/conf.d/default.conf
-RUN chmod +x /run.sh
+RUN mkdir -p /vol/web && \
+    touch /etc/nginx/conf.d/default.conf && \
+    chown nginx:nginx /etc/nginx/conf.d/default.conf && \
+    chmod +x /run.sh
 
 USER nginx
 
