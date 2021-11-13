@@ -5,6 +5,8 @@ upstream backend {
 server {
     listen 80;
 
+    add_header Access-Control-Allow-Origin *;
+
     index index.html;
 
     location / {

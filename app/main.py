@@ -1,5 +1,6 @@
 from uvicorn import run
-from fastapi import FastAPI, UploadFile, File, status, HTTPException
+from fastapi import FastAPI, UploadFile, File, status, HTTPException, Response
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from aiofiles import open as aio_open
 from pytesseract import image_to_string
@@ -13,6 +14,20 @@ app = FastAPI(
                 openapi_url="/api/openapi.json",
                 docs_url="/api/docs"
              )
+
+origins = [
+    "http://192.168.69.55",
+    "http://192.168.69.3",
+    "https://ocr.0x30c4.dev",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 db_host = environ.get("DATABASE_HOST", default="")
 db_port = int(environ.get("DATABSE_PORT", default=5432))
@@ -72,10 +87,11 @@ async def process(image: UploadFile = File(...)):
 
 
 @app.get("/api/get_images/{uuid}")
-async def get_images(uuid: str):
+async def get_images(response: Response, uuid: str):
     """
         Find image by UUID
     """
+    response.set_cookie(key="s", value="s")
     image: ModelImage = db.session.query(ModelImage).filter(ModelImage.uuid == uuid).first()
 
     if not image:
