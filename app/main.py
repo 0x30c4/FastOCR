@@ -44,7 +44,7 @@ UPLOAD_DIR = environ.get("UPLOAD_DIR", default='')
 ALLOWED_FILE_EXT = ("jpeg", "png", "gif", "bmp", "tiff", "jpg")
 
 @app.post("/api/image", status_code=status.HTTP_201_CREATED)
-async def process(image: UploadFile = File(...)):
+async def process(file: UploadFile = File(...)):
 
     """
         Check if the content type is image. If not then
@@ -53,18 +53,18 @@ async def process(image: UploadFile = File(...)):
 
     ret_obj = {}
 
-    if not image.content_type.lower().endswith(ALLOWED_FILE_EXT):
+    if not file.content_type.lower().endswith(ALLOWED_FILE_EXT):
         raise HTTPException(status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
                             detail="File Type Not Supported! Supported File"
                             f"type [{', '.join(ALLOWED_FILE_EXT)}]")
     else:
         # Get the image extention.
-        file_ext = image.content_type.split("/")[1]
+        file_ext = file.content_type.split("/")[1]
 
         # Create ModelImage obj to get the UUID.
         image_db = ModelImage(
                         text="asdasd as", file_ext=file_ext,
-                        original_file_name=image.filename, uuid=uuid4().hex
+                        original_file_name=file.filename, uuid=uuid4().hex
                    )
 
         file_name = image_db.uuid.__str__() + "." + file_ext
@@ -72,7 +72,7 @@ async def process(image: UploadFile = File(...)):
 
         # Write image to the disk
         async with aio_open(file_path, "wb") as out_file:
-            while content := await image.read(1024):
+            while content := await file.read(1024):
                 await out_file.write(content)
 
         image_db.text = image_to_string(file_path)
@@ -80,8 +80,11 @@ async def process(image: UploadFile = File(...)):
         db.session.add(image_db)
         db.session.commit()
 
+        if not image_db.text.strip():
+            image_db.text = 'No Text Was Found!'
+
         ret_obj["text"] = image_db.text
-        ret_obj["url"] = file_name
+        ret_obj["url"] = "uploads/" + file_name
 
     return ret_obj
 
@@ -96,6 +99,9 @@ async def get_images(response: Response, uuid: str):
 
     if not image:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Image Not Fount!")
+
+    # Don't output the id no
+    del image.id
 
     return image
 

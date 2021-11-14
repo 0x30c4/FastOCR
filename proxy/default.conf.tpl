@@ -7,10 +7,11 @@ server {
 
     add_header Access-Control-Allow-Origin *;
 
-    index index.html;
+    #index index.html;
 
     location / {
-        alias /vol/web/static/;
+        #alias /vol/web/static/;
+        proxy_pass http://192.168.69.55:3000/;
     }
     
     location /uploads {

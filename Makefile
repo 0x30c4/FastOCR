@@ -1,5 +1,4 @@
 build-dev:
-	cp front-end/index.html data/media/static/index.html
 	docker build --force-rm $(op) -t fast_ocr:latest .
 	docker build --force-rm $(op) -t ocr_nginx:latest proxy
 
