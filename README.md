@@ -35,7 +35,7 @@ $ mkdir -p data/media/uploads
 
 #### You can change the ```uploads``` directory location by changing it from the ```.env.prod```
 
-### Build the front-end with node.
+### Build the front-end with node. (Optional step)
 ```
 $ cd front-end
 $ npm run build
