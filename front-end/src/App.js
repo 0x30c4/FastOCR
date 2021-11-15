@@ -105,6 +105,7 @@ export default class App extends Component {;
                     <br/>
                     <Row className="justify-content-md-center">
                         <Col md="auto">
+                            <ImgCard imgUrl={this.state.imgUrl} imgText="helloiasdasdasdasdasd "/>
                             {this.state.imgUrl ? (
                                 <ImgCard imgUrl={this.state.imgUrl} imgText={this.state.imgText}/>
                             ) : (

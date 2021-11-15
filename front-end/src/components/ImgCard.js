@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
         Button, Card, CardBody, CardText,
         CardImg, CardTitle, CardHeader, CardFooter
 } from 'reactstrap';
+import { CopyToClipboard } from "react-copy-to-clipboard";
+
+
+const onCopyText = () => {
+};
+
+const openInNewTab = (url) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+    if (newWindow) newWindow.opener = null
+}
 
 
 export default function ImgCard ({ imgText, imgUrl }) {
+    const [text, setText] = useState("");
+    const [isCopied, setIsCopied] = useState(false);
     return (
         <Card >
           <CardBody>
@@ -16,12 +28,12 @@ export default function ImgCard ({ imgText, imgUrl }) {
             </CardHeader>
             <hr/>
             &nbsp;&nbsp;&nbsp;
-            <Button className='mx-2'>
+            <Button className='mx-2' onClick={() => openInNewTab(imgUrl)}>
                 Open In an New Tab
             </Button>
-            <Button>
-                Copy Text
-            </Button>
+            <CopyToClipboard text={imgText} onCopy={onCopyText}>
+                <Button>Copy Text To Clipboard</Button>
+            </CopyToClipboard>
             <hr/>
             <CardText>
                 {imgText}
