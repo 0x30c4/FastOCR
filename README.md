@@ -28,6 +28,13 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 $ git clone https://github.com/0x30c4/FastOCR
 ```
 
+### Create the ```data/media/uploads``` directory where all the images will be.
+```
+$ mkdir -p data/media/uploads 
+```
+
+### You can change the ```uploads``` directory location by changing it from the ```.env.prod```
+
 ### Build the front-end with node.
 ```
 $ cd front-end
