@@ -6,10 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ImgCard from './components/ImgCard';
 import UploadCard from './components/UploadCard';
 import {
-        Progress, Container, Label, Button, Card,
-        CardBody, CardText, CardImg, CardTitle, Row,
-        Col, CardHeader, Accordion, AccordionItem,
-        AccordionHeader, AccordionBody, FormGroup
+        Container, Label, Button,
+        Row, Col, FormGroup
 } from 'reactstrap';
 
 
@@ -31,12 +29,9 @@ export default class App extends Component {;
 
         if (!this.imgQuery){
             const uuid = window.location.hash.replace('#' , '')
-            // console.log(uuid)
             if (uuid.length == 32){
                 this.imgQuery = true;
                 this.getImgData(uuid)
-                // console.log(this.state.imgUrl)
-                // console.log(this.state.imgText)
             }
         }
     }
@@ -61,8 +56,6 @@ export default class App extends Component {;
             })
           .then(res => { // then print response status
             toast.success('upload success')
-            // this.state.imgUrl = res.data['url']
-            // window.state11 = this.state.imgUrl
               this.setState({
                   imgUrl: res.data['url'],
                   imgText: res.data['text']
