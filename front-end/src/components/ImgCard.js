@@ -10,7 +10,8 @@ const onCopyText = () => {
 };
 
 const openInNewTab = (url) => {
-    url = window.location.protocol + "//" + window.location.host + url.split('uploads/')[1].split('.')[0]
+    url = window.location.protocol + "//" + window.location.host + "/#" + url.split('uploads/')[1].split('.')[0]
+    console.log(url)
     const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
     if (newWindow) newWindow.opener = null
 }
