@@ -33,7 +33,7 @@ $ git clone https://github.com/0x30c4/FastOCR
 $ mkdir -p data/media/uploads 
 ```
 
-### You can change the ```uploads``` directory location by changing it from the ```.env.prod```
+#### You can change the ```uploads``` directory location by changing it from the ```.env.prod```
 
 ### Build the front-end with node.
 ```
