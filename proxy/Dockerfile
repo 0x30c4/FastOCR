@@ -1,5 +1,5 @@
 FROM nginxinc/nginx-unprivileged:1-alpine
-LABEL maintainer="sanaf"
+LABEL maintainer="sanaf@0x30c4.dev"
 
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
 COPY ./nginx.conf /etc/nginx/nginx.conf
