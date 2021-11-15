@@ -19,8 +19,6 @@ services:
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
-    links:
-      - "db:db"
 
   ocr_api_srv:
     image: fast_ocr
@@ -41,7 +39,10 @@ services:
     volumes: *services-volumes
     ports:
       - "5000:5000"
-    
+    links:
+      - "db:db"
+
+   
   proxy:
   # build: 
   #    context: ./proxy
