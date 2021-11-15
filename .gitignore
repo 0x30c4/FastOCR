@@ -1,3 +1,6 @@
-data/media/uploads/*
-app/__pycache__/*
-app/__pycache__/
+/data/media/uploads/*
+/app/__pycache__/*
+/app/__pycache__/
+/app/alembic/__pycache__/*
+/app/alembic/__pycache__/
+
