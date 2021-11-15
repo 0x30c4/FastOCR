@@ -17,7 +17,7 @@ export default function ImgCard ({ imgText, imgUrl }) {
             <hr/>
             &nbsp;&nbsp;&nbsp;
             <Button className='mx-2'>
-                Copy Link
+                Open In an New Tab
             </Button>
             <Button>
                 Copy Text
