@@ -47,7 +47,7 @@ $ cd -
 $ docker volume create pgdata
 ```
 
-If you want to take backup of the databse then you can backup the ```/var/lib/docker/volumes/pgdata``` directory.
+#### If you want to take backup of the databse then you can backup the ```/var/lib/docker/volumes/pgdata``` directory.
 
 ### Build the container.
 ```
