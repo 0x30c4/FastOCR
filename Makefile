@@ -9,8 +9,8 @@ down:
 	docker-compose --env-file ./config/.env.prod down --remove-orphans $(op)
 
 up-api:
-	docker-compose --env-file ./config/.env.prod up db -d 
-	docker-compose --env-file ./config/.env.prod up ocr_api_srv -d
+	docker-compose --env-file ./config/.env.prod up -d db
+	docker-compose --env-file ./config/.env.prod up -d ocr_api_srv
 
 down-api:
 	docker-compose --env-file ./config/.env.prod down db
