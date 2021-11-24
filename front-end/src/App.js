@@ -77,6 +77,8 @@ export default class App extends Component {;
                 this.setState({
                   imgUrl: "/uploads/" + res.data['uuid'] + "." + res.data['file_ext'],
                   imgText: res.data['text']
+                  createTime: res.data['time_created'],
+                  oriFileName: res.data['original_file_name']
             })
             window.iii = res.data
         })
