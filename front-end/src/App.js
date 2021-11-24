@@ -21,7 +21,9 @@ export default class App extends Component {;
             this.state = {
             selectedFile: null,
             imgUrl:  "",
-            imgText: ""
+            imgText: "",
+            createTime: "",
+            oriFileName: ""
         }
     }
 
@@ -58,7 +60,9 @@ export default class App extends Component {;
             toast.success('upload success')
               this.setState({
                   imgUrl: res.data['url'],
-                  imgText: res.data['text']
+                  imgText: res.data['text'],
+                  createTime: res.data['time_created'],
+                  oriFileName: res.data['original_file_name']
               })
           })
           .catch(err => { // then print response status
