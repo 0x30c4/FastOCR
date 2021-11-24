@@ -52,7 +52,7 @@ export default function ImgCard ({ imgText, imgUrl, cTime, oFN}) {
           </CardBody>
           <CardImg variant="bottom" src={imgUrl}/>
           <CardFooter>
-              Creation Time: {cTime}
+              Creation Time: {cTime}<br/>
               Original File Name: {oFN}
           </CardFooter>
         </Card>
