@@ -22,7 +22,7 @@ export default class App extends Component {;
             selectedFile: null,
             imgUrl:  "",
             imgText: "",
-            createTime: "",
+            createdTime: "",
             oriFileName: ""
         }
     }
