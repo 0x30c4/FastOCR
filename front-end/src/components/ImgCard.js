@@ -21,7 +21,7 @@ function openInNewTab (url) {
 }
 
 
-export default function ImgCard ({ imgText, imgUrl, cTime}) {
+export default function ImgCard ({ imgText, imgUrl, cTime, oFN}) {
     const [text, setText] = useState("");
     const [isCopied, setIsCopied] = useState(false);
     console.log(createLink(imgUrl))
@@ -53,6 +53,7 @@ export default function ImgCard ({ imgText, imgUrl, cTime}) {
           <CardImg variant="bottom" src={imgUrl}/>
           <CardFooter>
               Creation Time: {cTime}
+              Original File Name: {oFN}
           </CardFooter>
         </Card>
     );
