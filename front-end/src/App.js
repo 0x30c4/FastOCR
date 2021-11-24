@@ -76,11 +76,11 @@ export default class App extends Component {;
             .then((res) => {
                 this.setState({
                   imgUrl: "/uploads/" + res.data['uuid'] + "." + res.data['file_ext'],
-                  imgText: res.data['text']
+                  imgText: res.data['text'],
                   createTime: res.data['time_created'],
                   oriFileName: res.data['original_file_name']
             })
-            window.iii = res.data
+            // window.iii = res.data
         })
             .catch((err) => {
                 toast.error("Can't get the image!")
@@ -105,7 +105,7 @@ export default class App extends Component {;
                     <Row className="justify-content-md-center">
                         <Col md="auto">
                             {this.state.imgUrl ? (
-                                <ImgCard imgUrl={this.state.imgUrl} imgText={this.state.imgText}/>
+                                <ImgCard imgUrl={this.state.imgUrl} cTime={this.state.createTime} imgText={this.state.imgText}/>
                             ) : (
                                 <div></div>
                             )}
