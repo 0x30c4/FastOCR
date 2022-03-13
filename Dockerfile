@@ -17,8 +17,6 @@ RUN pip install --upgrade pip && \
     apt-get install -y tesseract-ocr && \
     rm /requirements.txt
 
-
-
 # RUN apk add --update --no-cache --virtual .tmp-deps tesseract-ocr build-base jpeg-dev zlib-dev  postgresql-dev  && \
 #     pip install --upgrade pip && \
 #     pip install --no-cache-dir --upgrade -r /requirements.txt && \

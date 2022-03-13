@@ -7,7 +7,7 @@ x-services-volumes: &services-volumes
 
 services:
   db:
-      # container_name: postgresql_db
+    container_name: postgresql_db
     image: postgres
     restart: always
     ports:
@@ -15,15 +15,14 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      # - POSTGRES_DB=image
       - POSTGRES_DB=${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
 
   ocr_api_srv:
     image: fast_ocr
-    # build:
-    #   context: .
+    build:
+      context: .
     container_name: ocr_api_srv
     restart: always
     depends_on:
@@ -42,12 +41,11 @@ services:
     links:
       - "db:db"
 
-   
   proxy:
   # build: 
   #    context: ./proxy
     image: ocr_nginx
-    # container_name: nginx_proxy
+    container_name: nginx_proxy
     restart: always
     depends_on: 
       - ocr_api_srv 
