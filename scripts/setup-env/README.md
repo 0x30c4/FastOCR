@@ -77,7 +77,8 @@ single json file and let this script manage that for us.
 
 Surely we can do this and this script is for that purpose only.
 
-So, to solve this issue we can create a json file like this.
+So, to solve this issue we can create a json file like this. 
+We will call it ```example-env.json```
 
 ```json
 {
@@ -111,12 +112,19 @@ So, to solve this issue we can create a json file like this.
   }
 }
 ```
-
-
+And now if we run this command
 ```bash
 
-
-$ setenv.py docker-compose.yml env/ env/env-example.json -t production
+  Script Name                  The targeted directory where you want you keep the all the dynamically
+  |                            |  generated .env file.
+  |                            |                             _the targeted version
+  |                            |                            | 
+  V                            V                            V
+$ setenv.py docker-compose.yml env/ env/example-env.json -t production
+            ^                       ^
+            |                       |_Our example env file here 
+            |
+            docker-compose file name
 
 [CREATED] ./env/.env.ocr_api_srv_prod for ocr_api_srv_prod.
 [CREATED] ./env/.env.db_prod for db_prod.
