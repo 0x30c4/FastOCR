@@ -112,7 +112,9 @@ We will call it ```example-env.json```
   }
 }
 ```
-And for the updated docker-compose file we will do just one simple change
+And for the updated docker-compose file we will make just one simple change, 
+we will replace the ```environment``` with ```env_file```. And the env file 
+will be created by running the setenv.py 
 
 ```yml
 ...
@@ -132,11 +134,7 @@ And for the updated docker-compose file we will do just one simple change
         - ${HOST_BIND_PORT_API}:${CONTAINER_BIND_PORT_API}
 ...
 ```
-
-
-
-
-And now if we run this command
+And now if we run this command to create the env files
 ```bash
 
   Script Name                  The targeted directory where you want you keep the all the dynamically
@@ -155,4 +153,3 @@ $ setenv.py docker-compose.yml env/ env/example-env.json -t production
 [CREATED] ./env/.env.proxy_prod for proxy_prod.
 [CREATED] env/.env.production for docker-compose.
 ```
-
