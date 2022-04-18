@@ -21,6 +21,7 @@ Make sure you have [git](https://git-scm.com/book/en/v2/Getting-Started-Installi
 
 # Version.
 * [Production](https://github.com/0x30c4/FastOCR#deploy-docker-container-production-version)
+* [Development](https://github.com/0x30c4/FastOCR#deploy-docker-container-development-version)
 
 ## Deploy Docker Container (Production Version.).
 ### Clone the repo.
@@ -73,3 +74,7 @@ You can add ```docker logs -f/--follow <container_name>``` to follow log output
 ```
 $ make down
 ```
+
+
+## Deploy Docker Container (Development Version.).
+

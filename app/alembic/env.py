@@ -5,18 +5,20 @@ from sqlalchemy import pool
 
 from alembic import context
 
-import os, sys
+import os
+import sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
 
 config = context.config
 
-config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
-
 fileConfig(config.config_file_name)
 
 import models
+from config import DATABASE_URL
+
+config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 target_metadata = models.Base.metadata
 

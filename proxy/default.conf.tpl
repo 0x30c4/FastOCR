@@ -1,17 +1,10 @@
-upstream backend {
-    server ocr_api_srv:5000;
-}
-
 server {
-    listen 80;
+    listen $NGINX_LESTEN_PORT_CONT;
 
     add_header Access-Control-Allow-Origin *;
 
-    #index index.html;
-
     location / {
         alias /vol/web/static/;
-        # proxy_pass http://192.168.69.55:3000/;
     }
     
     location /uploads {
@@ -20,6 +13,6 @@ server {
     }
 
     location /api {
-        proxy_pass http://backend;
+        proxy_pass http://$API_CONT_DOMAIN:5000;
     }
 }

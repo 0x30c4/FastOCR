@@ -14,7 +14,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  ocr_api_srv:
+  ocr_api_srv_dev:
     image: fast_ocr
     build:
       context: .
@@ -28,6 +28,8 @@ services:
     volumes:
       - ./app:/code:ro
       - ${UPLOAD_DIR}:${UPLOAD_DIR_CONT}:rw
+    ports:
+      - ${API_PORT}:${API_PORT}
     links:
       - "db:db"
 

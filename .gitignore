@@ -1,6 +1,9 @@
-/data/media/uploads/*
-/app/__pycache__/*
-/app/__pycache__/
-/app/alembic/__pycache__/*
-/app/alembic/__pycache__/
+./data/*
+./app/__pycache__/*
+./app/__pycache__/
+./app/alembic/__pycache__/*
+./app/alembic/__pycache__/
+./logs/nginx/*
+./logs/ocr_api/*
+
 

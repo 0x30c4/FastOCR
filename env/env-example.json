@@ -1,0 +1,38 @@
+{
+	"production": {
+		"ocr_api_srv": {
+			"API_PORT": 5000,
+			"HOST": "0.0.0.0",
+			"WORKERS": 2,
+			"LOG_LEVEL": "info",
+			"RELOAD": 0,
+			"UPLOAD_DIR_HOST": "./data/media/uploads",
+			"UPLOAD_DIR_CONT": "/uploads",
+			"API_CONT_DOMAIN": "api.prod.net"
+		},
+		"db": {
+			"POSTGRES_USER": "demouser",
+			"POSTGRES_PASSWORD": "VeryStrongPassHaHa",
+			"DB_NAME": "image",
+			"DATABSE_PORT": 5432
+		}
+	},
+	"development": {
+		"ocr_api_srv": {
+			"API_PORT": 5000,
+			"HOST": "0.0.0.0",
+			"WORKERS": 2,
+			"LOG_LEVEL": "info",
+			"RELOAD": 1,
+			"UPLOAD_DIR_HOST": "./data/media/uploads",
+			"UPLOAD_DIR_CONT": "/uploads",
+			"API_CONT_DOMAIN": "api.prod.net"
+		},
+		"db": {
+			"POSTGRES_USER": "demouser",
+			"POSTGRES_PASSWORD": "VeryStrongPassHaHa",
+			"DB_NAME": "image",
+			"DATABSE_PORT": 5432
+		}
+	}
+}

@@ -5,10 +5,21 @@ from fastapi_sqlalchemy import DBSessionMiddleware, db
 from aiofiles import open as aio_open
 from pytesseract import image_to_string
 from os.path import join
-from os import environ
 from uuid import uuid4
 
 from models import Image as ModelImage
+
+# Importing the ENV vars from config
+from config import (
+                    DATABASE_URL,
+                    UPLOAD_DIR,
+                    ALLOWED_FILE_EXT,
+                    PORT,
+                    WORKERS,
+                    HOST,
+                    RELOAD,
+                    LOG_LEVEL
+)
 
 app = FastAPI(
                 openapi_url="/api/openapi.json",
@@ -29,26 +40,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-db_host = environ.get("DATABASE_HOST", default="")
-db_port = int(environ.get("DATABSE_PORT", default=5432))
-db_user = environ.get("POSTGRES_USER", default="")
-db_pass = environ.get("POSTGRES_PASSWORD", default="")
-db_name = environ.get("DB_NAME", default="")
 
-db_url = f"postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+app.add_middleware(DBSessionMiddleware, db_url=DATABASE_URL)
 
-app.add_middleware(DBSessionMiddleware, db_url=db_url)
-
-UPLOAD_DIR = environ.get("UPLOAD_DIR", default='')
-
-ALLOWED_FILE_EXT = ("jpeg", "png", "gif", "bmp", "tiff", "jpg")
 
 @app.post("/api/image", status_code=status.HTTP_201_CREATED)
 async def process(file: UploadFile = File(...)):
 
     """
-        Check if the content type is image. If not then
-        return invalid file type.
+        Processes the image and returns the extracted text.
+
+        - **file** : The file that need will be processed.
     """
 
     ret_obj = {}
@@ -61,12 +63,16 @@ async def process(file: UploadFile = File(...)):
         # Get the image extention.
         file_ext = file.content_type.split("/")[1]
 
+        # print(UPLOAD_DIR)
+        # return {}
+
         # Create ModelImage obj to get the UUID.
         image_db = ModelImage(
-                        text="asdasd as", file_ext=file_ext,
+                        text="", file_ext=file_ext,
                         original_file_name=file.filename, uuid=uuid4().hex
                    )
 
+        # Creating file name for the image.
         file_name = image_db.uuid.__str__() + "." + file_ext
         file_path = join(UPLOAD_DIR, file_name)
 
@@ -75,8 +81,10 @@ async def process(file: UploadFile = File(...)):
             while content := await file.read(1024):
                 await out_file.write(content)
 
+        # Extracting text from the image.
         image_db.text = image_to_string(file_path)
 
+        # Putting the text data on the db.
         db.session.add(image_db)
         db.session.commit()
 
@@ -92,13 +100,24 @@ async def process(file: UploadFile = File(...)):
 @app.get("/api/get_images/{uuid}")
 async def get_images(response: Response, uuid: str):
     """
-        Find image by UUID
-    """
-    response.set_cookie(key="s", value="s")
-    image: ModelImage = db.session.query(ModelImage).filter(ModelImage.uuid == uuid).first()
+        Find image by UUID and if the image is found on then
+        return the images text and other data.
 
+        - **uuid** : The UUID of the image that you want to get
+                     data of.
+    """
+    # response.set_cookie(key="s", value="s")
+    # Making a query for the data.
+    image: ModelImage = db.session.query(ModelImage).\
+                            filter(ModelImage.uuid == uuid).first()
+
+
+    # If nothing was found then rise a 404 not found exception.
     if not image:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Image Not Fount!")
+        raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Image Not Fount!"
+        )
 
     # Don't output the id no
     del image.id
@@ -107,16 +126,9 @@ async def get_images(response: Response, uuid: str):
 
 
 if __name__ == "__main__":
-    port = int(environ.get("PORT", default=5000))
-    workers = int(environ.get("WORKERS", default=1))
-    host = environ.get("HOST", default="0.0.0.0")
-    log_level = environ.get("LOG_LEVEL", default="info")
-
-    reload = int(environ.get("RELOAD", default="1"))
-
     run(
-        "main:app", host=host, port=port,
-        log_level=log_level, workers=workers,
-        reload=reload
+        "main:app", host=HOST, port=PORT,
+        log_level=LOG_LEVEL, workers=WORKERS,
+        reload=RELOAD
     )
 
