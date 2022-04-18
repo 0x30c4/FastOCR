@@ -31,20 +31,53 @@ then instead of putting all the variables manually or setting up environment var
 for development version and production version separately we can put it inside a json file and
 let the script take over our manual work.
 
-
 ## Here is an example what it does.
+
+### This is a typical docker-compose file.
 ```yml
 ...
   services:
-    image: postgres
-    environment:
-      - POSTGER_USER=user
-      - POSTGRES_PASSWORD=1234
-      ...
-    ports:
-      - ${HOST_BIND_PORT}:${CONTAINER_BIND_PORT}
+    db:
+      image: postgres
+      environment:
+        - POSTGER_USER=user
+        - POSTGRES_PASSWORD=1234
+        ...
+      ports:
+        - ${HOST_BIND_PORT_DB}:${CONTAINER_BIND_PORT_DB}
+
+    api:
+      image: the_api
+      environment:
+        - APP_KEY="...."
+        - APP_LISTEN_PORT=8888
+        - DB_URL="url://"
+      ports:
+        - ${HOST_BIND_PORT_API}:${CONTAINER_BIND_PORT_API}
 ...
 ```
+
+### The .env file will look something like this
+```
+HOST_BIND_PORT_API=8888
+HOST_BIND_PORT_DB=1111
+CONTAINER_BIND_PORT_API=9999
+CONTAINER_BIND_PORT_DB=2222
+```
+
+As you can see here to control the ```environment``` we have to pass each variable manually.
+Or we can just use ```env_file``` to setup a separate env file for each of the service. 
+Although we can have a global environment variable file where env variables of services will be.
+Though that will work but that's generally not a good practice.
+
+So, the only option we are left with it to use separate env files for service's but managing them
+is much more painful. So, to solve that what if we can just put all of our environment variables in a
+single json file and let this script manage that for us.
+
+Surely we can do this and this script is for that purpose only.
+
+
+
 
 ```bash
 
