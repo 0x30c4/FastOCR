@@ -50,8 +50,9 @@ let the script take over our manual work.
       image: the_api
       environment:
         - APP_KEY="...."
-        - APP_LISTEN_PORT=8888
+        - CONTAINER_BIND_PORT_API=8888
         - DB_URL="url://"
+        - DEBUG=0
       ports:
         - ${HOST_BIND_PORT_API}:${CONTAINER_BIND_PORT_API}
 ...
@@ -76,7 +77,40 @@ single json file and let this script manage that for us.
 
 Surely we can do this and this script is for that purpose only.
 
+So, to solve this issue we can create a json file like this.
 
+```json
+{
+  "production": {
+    "db": {
+        "POSTGRES_PASSWORD": "1234",
+        "POSTGER_USER": "user"
+        "HOST_BIND_PORT_DB": 1111,
+        "CONTAINER_BIND_PORT_DB": 2222,
+        "DEBUG": 0
+      },
+      "api": {
+        "API_KEY": "....",
+        "CONTAINER_BIND_PORT_API": 8888,
+        "DB_URL": "url://"
+      }
+  }
+  "development": {
+    "db": {
+        "POSTGRES_PASSWORD": "1234",
+        "POSTGER_USER": "user"
+        "HOST_BIND_PORT_DB": 1111,
+        "CONTAINER_BIND_PORT_DB": 5555,
+        "DEBUG": 1
+      },
+      "api": {
+        "API_KEY": "....",
+        "CONTAINER_BIND_PORT_API": 5555,
+        "DB_URL": "url://"
+      }
+  }
+}
+```
 
 
 ```bash
