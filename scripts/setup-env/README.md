@@ -112,6 +112,30 @@ We will call it ```example-env.json```
   }
 }
 ```
+And for the updated docker-compose file we will do just one simple change
+
+```yml
+...
+  services:
+    db:
+      image: postgres
+      env_file:
+        - ./env/.env.db
+      ports:
+        - ${HOST_BIND_PORT_DB}:${CONTAINER_BIND_PORT_DB}
+
+    api:
+      image: the_api
+      env_file:
+        - ./env/.env.the_api
+      ports:
+        - ${HOST_BIND_PORT_API}:${CONTAINER_BIND_PORT_API}
+...
+```
+
+
+
+
 And now if we run this command
 ```bash
 
