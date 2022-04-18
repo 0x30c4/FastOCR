@@ -24,7 +24,7 @@
 			"WORKERS": 2,
 			"LOG_LEVEL": "info",
 			"RELOAD": 1,
-			"UPLOAD_DIR_HOST": "./data/media/uploads",
+			"UPLOAD_DIR_HOST": "./data/",
 			"UPLOAD_DIR_CONT": "/uploads",
 			"API_CONT_DOMAIN": "api.prod.net"
 		},
