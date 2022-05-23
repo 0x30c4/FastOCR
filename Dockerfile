@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10.4-bullseye
 LABEL maintainer="Sanaf <sanaf@0x30c4.dev>"
 
 ENV PYTHONUNBUFFERED=1
@@ -8,12 +8,16 @@ COPY ./app /code
 
 WORKDIR /code
 
-RUN pip install --upgrade pip && \
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get install -y build-essential libpq-dev gettext && \
+	pip install --upgrade pip && \
     pip install --no-cache-dir --upgrade -r /requirements.txt && \
+    apt-get install -y tesseract-ocr && \
     mkdir -p /vol/web/static && \
     mkdir -p /vol/web/uploads && \
-    apt-get update && \
-    apt-get install -y tesseract-ocr && \
     rm /requirements.txt
 
-CMD ["python", "/code/main.py"]
+COPY ./scripts/api-envsubst-log-ini.sh /tmp/api-envsubst-log-ini.sh
+COPY ./config/logs/log.ini.tpl /tmp/log.ini.tpl
+# CMD ["python", "/code/main.py"]

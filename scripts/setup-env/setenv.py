@@ -169,6 +169,6 @@ if __name__ == "__main__":
 
     all_env = {}
     for value in data_env.values():
-        all_env = all_env | value
+        all_env = {**all_env, **value}
 
     create_compose_env_file(docker_compose_env_file_path, all_env)

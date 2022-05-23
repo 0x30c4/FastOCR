@@ -7,20 +7,20 @@ export STATIC_ROOT_REL="./data/media/static"
 export MEDIA_ROOT_REL="./data/media/uploads"
 
 # app vars.
-export PORT=5000
+export API_PORT=5000
 export WORKERS=2
 export HOST=0.0.0.0
 export LOG_LEVEL=info
 export RELOAD=1
-export UPLOAD_DIR="./data/media/uploads"
+export UPLOAD_DIR_CONT="./data/dev/uploads"
 export POSTGRES_USER=user
 export DATABASE_HOST=192.168.0.105
 export POSTGRES_PASSWORD=1234
-export DB_NAME=image
+export POSTGRES_DB=image
 export DATABSE_PORT=5432
 
 
-sudo docker run -d \
+docker run -d \
     -p 5432:5432 \
     -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
     -e POSTGRES_USER=POSTGRES_USER \

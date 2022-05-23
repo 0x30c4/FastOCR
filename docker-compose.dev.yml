@@ -1,37 +1,42 @@
 version: "3.9"
 
 services:
-  db:
-    container_name: postgresql_db
-    image: postgres
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    ocr_api_srv_dev:
+      image: fast_ocr
+      build:
+        context: .
+      container_name: ocr_api_srv_dev
+      restart: always
+      depends_on:
+      - db_dev
+      command: bash -c "bash /tmp/api-envsubst-log-ini.sh && alembic upgrade head && python main.py"
+      env_file:
+        - ./env/.env.ocr_api_srv.dev
+      environment:
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_DB=${POSTGRES_DB}
+        - DATABSE_PORT=${DATABSE_PORT}
+      volumes:
+        - ./app:/code:ro
+        - ${UPLOAD_DIR_HOST}:${UPLOAD_DIR_CONT}:rw
+        - ${APP_LOG_DIR_HOST}:${APP_LOG_DIR_CONT}:rw
+      ports:
+        - ${API_PORT}:${API_PORT}
+      links:
+        - "db_dev:db"
 
-  ocr_api_srv_dev:
-    image: fast_ocr
-    build:
-      context: .
-    container_name: ocr_api_srv
-    restart: always
-    depends_on:
-      - db
-    command: bash -c "alembic upgrade head && python main.py"
-    env_file:
-      - ./env/.env.prod
-    volumes:
-      - ./app:/code:ro
-      - ${UPLOAD_DIR}:${UPLOAD_DIR_CONT}:rw
-    ports:
-      - ${API_PORT}:${API_PORT}
-    links:
-      - "db:db"
+    db_dev:
+      image: postgres:latest
+      container_name: postgresql_db
+      restart: always
+      env_file:
+        - ./env/.env.db.dev
+      ports:
+        - 5432:5432
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+
 
   # proxy:
   #   build: 

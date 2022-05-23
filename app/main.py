@@ -18,7 +18,8 @@ from config import (
                     WORKERS,
                     HOST,
                     RELOAD,
-                    LOG_LEVEL
+                    LOG_LEVEL,
+                    LOG_INI
 )
 
 app = FastAPI(
@@ -60,11 +61,8 @@ async def process(file: UploadFile = File(...)):
                             detail="File Type Not Supported! Supported File"
                             f"type [{', '.join(ALLOWED_FILE_EXT)}]")
     else:
-        # Get the image extention.
+        # Get the image extension.
         file_ext = file.content_type.split("/")[1]
-
-        # print(UPLOAD_DIR)
-        # return {}
 
         # Create ModelImage obj to get the UUID.
         image_db = ModelImage(
@@ -106,11 +104,9 @@ async def get_images(response: Response, uuid: str):
         - **uuid** : The UUID of the image that you want to get
                      data of.
     """
-    # response.set_cookie(key="s", value="s")
     # Making a query for the data.
     image: ModelImage = db.session.query(ModelImage).\
                             filter(ModelImage.uuid == uuid).first()
-
 
     # If nothing was found then rise a 404 not found exception.
     if not image:
@@ -129,6 +125,6 @@ if __name__ == "__main__":
     run(
         "main:app", host=HOST, port=PORT,
         log_level=LOG_LEVEL, workers=WORKERS,
-        reload=RELOAD
+        reload=RELOAD, log_config=LOG_INI
     )
 

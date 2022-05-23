@@ -4,7 +4,7 @@ FastAPI-SQLAlchemy==0.2.1
 Mako==1.1.4
 SQLAlchemy==1.4.19
 uvicorn==0.14.0
-psycopg2-binary==2.9.1
+psycopg2==2.9.3
 aiofiles==0.7.0
 python-multipart==0.0.5
 pytesseract==0.3.8
