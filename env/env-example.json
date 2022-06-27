@@ -1,24 +1,34 @@
 {
 	"production": {
-		"ocr_api_srv": {
-			"API_PORT": 5000,
+		"ocr_api_srv_prod": {
+			"API_PORT": 8080,
 			"HOST": "0.0.0.0",
 			"WORKERS": 2,
 			"LOG_LEVEL": "info",
-			"RELOAD": 0,
+			"RELOAD": 1,
+			"DATABASE_HOST": "db",
 			"UPLOAD_DIR_HOST": "./data/prod/uploads",
 			"UPLOAD_DIR_CONT": "/uploads",
-			"API_CONT_DOMAIN": "api.prod.net",
-			"APP_LOG_FILE": "/logs/api_prod.log",
-			"APP_LOG_DIR_HOST": "/data/prod/logs/api", 
-			"APP_LOG_DIR_HOST": "/logs/"
+			"API_CONT_DOMAIN": "api.net",
+			"APP_LOG_INI": "/logs/log.ini",
+			"APP_LOG_INI_TPL": "/log.ini.tpl",
+			"APP_LOG_FILE": "/logs/api_dev.log",
+			"APP_LOG_DIR_HOST": "./data/prod/logs/api", 
+			"APP_LOG_DIR_CONT": "/logs/"
 		},
-		"db": {
-			"POSTGRES_USER": "demouser",
-			"POSTGRES_PASSWORD": "VeryStrongPassHaHa",
-			"DB_NAME": "image",
+		"db_prod": {
+			"POSTGRES_USER": "user",
+			"POSTGRES_PASSWORD": "1234",
+			"POSTGRES_DB": "image",
 			"DATABSE_PORT": 5432
-		}
+		},
+        "proxy_srv_prod": {
+            "NGINX_LESTEN_PORT_HOST": 8000,
+            "NGINX_LESTEN_PORT_CONT": 8000,
+            "MEDIA_ROOT_REL": "./data/prod/uploads",
+            "STATIC_ROOT_REL": "./front-end/build",
+            "NGINX_WORKER_CONNS": 1024
+        }
 	},
 	"development": {
 		"ocr_api_srv_dev": {
@@ -30,8 +40,9 @@
 			"DATABASE_HOST": "db",
 			"UPLOAD_DIR_HOST": "./data/dev/uploads",
 			"UPLOAD_DIR_CONT": "/uploads",
-			"API_CONT_DOMAIN": "api.dev.net",
+			"API_CONT_DOMAIN": "api.net",
 			"APP_LOG_INI": "/logs/log.ini",
+			"APP_LOG_INI_TPL": "/log.ini.tpl",
 			"APP_LOG_FILE": "/logs/api_dev.log",
 			"APP_LOG_DIR_HOST": "./data/dev/logs/api", 
 			"APP_LOG_DIR_CONT": "/logs/"
@@ -41,6 +52,13 @@
 			"POSTGRES_PASSWORD": "1234",
 			"POSTGRES_DB": "image",
 			"DATABSE_PORT": 5432
-		}
+		},
+        "proxy_srv_dev": {
+            "NGINX_LESTEN_PORT_HOST": 6900,
+            "NGINX_LESTEN_PORT_CONT": 8000,
+            "MEDIA_ROOT_REL": "./data/dev/uploads",
+            "STATIC_ROOT_REL": "./front-end/build",
+            "NGINX_WORKER_CONNS": 1024
+        }
 	}
 }

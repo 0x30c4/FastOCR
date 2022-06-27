@@ -1,5 +1,4 @@
 version: "3.9"
-
 services:
     ocr_api_srv_dev:
       image: fast_ocr
@@ -9,7 +8,7 @@ services:
       restart: always
       depends_on:
       - db_dev
-      command: bash -c "bash /tmp/api-envsubst-log-ini.sh && alembic upgrade head && python main.py"
+      command: bash -c "bash /api-envsubst-log-ini.sh && alembic upgrade head && python main.py"
       env_file:
         - ./env/.env.ocr_api_srv.dev
       environment:
@@ -37,27 +36,19 @@ services:
       volumes:
         - pgdata:/var/lib/postgresql/data
 
-
-  # proxy:
-  #   build: 
-  #     context: ./proxy
-  #   image: ocr_nginx
-  #   container_name: nginx_proxy
-  #   restart: always
-  #   command: "env;/run.sh"
-  #   # depends_on: 
-  #   #   - ocr_api_srv 
-  #   env_file:
-  #     - ./env/.env.prod
-  #   ports: 
-  #     - ${NGINX_LESTEN_PORT_HOST}:${NGINX_LESTEN_PORT_CONT}
-  #   volumes: 
-  #     - ${MEDIA_ROOT_REL}:/vol/web/uploads:rw
-  #     - ${STATIC_ROOT_REL}:/vol/web/static:ro
-  #     - ${NGINX_LOG_DIR_HOST}:${NGINX_LOG_DIR_CONT}:rw
-  #   links:
-  #     - ocr_api_srv:${API_CONT_DOMAIN}
-
+    proxy_srv_dev:
+        build:
+            context: ./proxy
+        container_name: proxy_srv_dev
+        env_file:
+            - ./env/.env.proxy_srv_dev
+        ports:
+            - ${NGINX_LESTEN_PORT_HOST}:${NGINX_LESTEN_PORT_CONT}
+        volumes:
+            - ${MEDIA_ROOT_REL}:/vol/web/uploads:rw
+            - ${STATIC_ROOT_REL}:/vol/web/static:ro
+        links:
+            - "ocr_api_srv_dev:api.net"
 
 volumes:
     pgdata:

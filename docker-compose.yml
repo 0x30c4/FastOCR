@@ -1,56 +1,53 @@
 version: "3.9"
 
 services:
-  db:
-    container_name: postgresql_db
-    image: postgres
-    restart: always
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    ocr_api_srv_prod:
+      image: fast_ocr
+      build:
+        context: .
+      container_name: ocr_api_srv_prod
+      restart: always
+      depends_on:
+        - db_prod
+      command: bash -c "bash /api-envsubst-log-ini.sh && alembic upgrade head && python main.py"
+      env_file:
+        - ./env/.env.ocr_api_srv.prod
+      environment:
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_DB=${POSTGRES_DB}
+        - DATABSE_PORT=${DATABSE_PORT}
+      ports:
+          - "6900:$API_PORT"
+      volumes:
+        - ./app:/code:ro
+        - ${UPLOAD_DIR_HOST}:${UPLOAD_DIR_CONT}:rw
+        - ${APP_LOG_DIR_HOST}:${APP_LOG_DIR_CONT}:rw
+      links:
+        - "db_prod:db"
 
-  ocr_api_srv:
-    image: fast_ocr
-    build:
-      context: .
-    container_name: ocr_api_srv
-    restart: always
-    depends_on:
-      - db
-    command: bash -c "alembic upgrade head && python main.py"
-    env_file:
-      - ./env/.env.prod
-    volumes:
-      - ./app:/code:ro
-      - ${UPLOAD_DIR}:${UPLOAD_DIR_CONT}:rw
-    links:
-      - "db:db"
+    db_prod:
+      image: postgres:latest
+      container_name: postgresql_db
+      restart: always
+      env_file:
+          - ./env/.env.db.prod
+      volumes:
+        - pgdata:/var/lib/postgresql/data
 
-  # proxy:
-  #   build: 
-  #     context: ./proxy
-  #   image: ocr_nginx
-  #   container_name: nginx_proxy
-  #   restart: always
-  #   command: "env;/run.sh"
-  #   # depends_on: 
-  #   #   - ocr_api_srv 
-  #   env_file:
-  #     - ./env/.env.prod
-  #   ports: 
-  #     - ${NGINX_LESTEN_PORT_HOST}:${NGINX_LESTEN_PORT_CONT}
-  #   volumes: 
-  #     - ${MEDIA_ROOT_REL}:/vol/web/uploads:rw
-  #     - ${STATIC_ROOT_REL}:/vol/web/static:ro
-  #     - ${NGINX_LOG_DIR_HOST}:${NGINX_LOG_DIR_CONT}:rw
-  #   links:
-  #     - ocr_api_srv:${API_CONT_DOMAIN}
-
+    proxy_srv_prod:
+        build:
+            context: ./proxy
+        container_name: proxy_srv_prod
+        env_file:
+            - ./env/.env.proxy_srv_prod
+        ports:
+            - ${NGINX_LESTEN_PORT_HOST}:${NGINX_LESTEN_PORT_CONT}
+        volumes:
+            - ${MEDIA_ROOT_REL}:/vol/web/uploads:rw
+            - ${STATIC_ROOT_REL}:/vol/web/static:ro
+        links:
+            - "ocr_api_srv_prod:api.net"
 
 volumes:
     pgdata:

@@ -18,6 +18,6 @@ RUN apt-get update && \
     mkdir -p /vol/web/uploads && \
     rm /requirements.txt
 
-COPY ./scripts/api-envsubst-log-ini.sh /tmp/api-envsubst-log-ini.sh
-COPY ./config/logs/log.ini.tpl /tmp/log.ini.tpl
+COPY ./scripts/api-envsubst-log-ini.sh /api-envsubst-log-ini.sh
+COPY ./config/logs/log.ini.tpl /log.ini.tpl
 # CMD ["python", "/code/main.py"]

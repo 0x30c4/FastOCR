@@ -20,6 +20,6 @@ RUN touch /etc/nginx/conf.d/default.conf && \
     chown nginx:nginx /logs && \
     chmod +x /run.sh
 
-USER nginx
+# USER nginx
 
 CMD ["/run.sh"]

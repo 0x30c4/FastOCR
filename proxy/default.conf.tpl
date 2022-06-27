@@ -13,6 +13,6 @@ server {
     }
 
     location /api {
-        proxy_pass http://$API_CONT_DOMAIN:5000;
+        proxy_pass http://api.net:8080;
     }
 }
