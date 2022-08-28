@@ -8,7 +8,7 @@
     "react": "^17.0.2",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
     "react-strap": "^0.0.1",
     "react-toastify": "^8.1.0",
     "reactstrap": "^9.0.1",
