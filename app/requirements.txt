@@ -1,7 +1,7 @@
 alembic==1.6.5
 fastapi==0.65.2
 FastAPI-SQLAlchemy==0.2.1
-Mako==1.1.4
+Mako==1.2.2
 SQLAlchemy==1.4.19
 uvicorn==0.14.0
 psycopg2==2.9.3
